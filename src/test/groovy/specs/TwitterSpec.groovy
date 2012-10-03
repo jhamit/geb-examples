@@ -19,4 +19,15 @@ class TwitterSpec extends GebReportingSpec {
         then:
         tweets.header.text() == "Tweets"
     }
+
+    def "Clicking name on first tweet opens modal"() {
+        when:
+        to TwitterPage
+
+        and:
+        tweets.clickFirstTweetName()
+
+        then:
+        b.$('#profile_popup').attr('style') == 'display: block;'
+    }
 }
