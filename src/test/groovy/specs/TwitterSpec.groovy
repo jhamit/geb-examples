@@ -28,6 +28,6 @@ class TwitterSpec extends GebReportingSpec {
         tweets.clickFirstTweetName()
 
         then:
-        b.$('#profile_popup').attr('style') == 'display: block;'
+        $('#profile_popup').attr('style') == 'display: block;'
     }
 }
