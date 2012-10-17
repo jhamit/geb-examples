@@ -4,9 +4,11 @@ import geb.spock.*
 
 class TwitterSpec extends GebReportingSpec {
 
-    def "The DFW Groovy Grails UG Twitter page should load"() {
+    def joshsTwitterPage = new TwitterPage(username: 'josh_hamit')
+
+    def "Josh's Twitter page should load"() {
         when:
-        to TwitterPage
+        to TwitterPage, joshsTwitterPage.username
 
         then:
         at TwitterPage
@@ -14,7 +16,7 @@ class TwitterSpec extends GebReportingSpec {
 
     def "The tweet section should be titled appropriately"() {
         when:
-        to TwitterPage
+        to TwitterPage, joshsTwitterPage.username
 
         then:
         tweets.header.text() == "Tweets"
@@ -22,12 +24,28 @@ class TwitterSpec extends GebReportingSpec {
 
     def "Clicking name on first tweet opens modal"() {
         when:
-        to TwitterPage
+        to TwitterPage, joshsTwitterPage.username
 
         and:
         tweets.clickFirstTweetName()
 
         then:
-        $('#profile_popup').attr('style') == 'display: block;'
+        tweets.isProfileModalOpen(tweets.firstTweet.attr('data-item-id'))
+    }
+
+    def "Profile uses custom profile image"() {
+        when:
+        to TwitterPage, joshsTwitterPage.username
+
+        then:
+        profileCard.isAvatarDefault() == false
+    }
+
+    def "Twitter handle correctly displays on page"() {
+        when:
+        to TwitterPage, joshsTwitterPage.username
+
+        then:
+        joshsTwitterPage.handle == profileCard.handle.text()
     }
 }
