@@ -8,5 +8,5 @@ import java.util.logging.*
 new File("interactive.properties").withInputStream {
     LogManager.logManager.readConfiguration it }
 
-b = new Browser(baseUrl: "https://twitter.com/dfw2gug")
+b = new Browser(baseUrl: "https://twitter.com/")
 b.go()
