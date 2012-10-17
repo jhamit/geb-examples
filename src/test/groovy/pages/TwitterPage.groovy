@@ -5,5 +5,6 @@ class TwitterPage extends Page {
     static url = "http://twitter.com"
     static content = {
         tweets { module TweetModule }
+        profileCard { module ProfileModule }
     }
 }
